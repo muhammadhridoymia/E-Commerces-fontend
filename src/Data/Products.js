@@ -1,0 +1,21 @@
+export const products = [
+    { id: 1, name: "Red Rose Bouquet", price: 10 },
+    { id: 2, name: "Men’s T-Shirt", price: 15 },
+    { id: 3, name: "Chocolate Box", price: 8 },
+    { id: 4, name: "Red Rose Bouquet", price: 10 },
+    { id: 5, name: "Men’s T-Shirt", price: 15 },
+    { id: 6, name: "Chocolate Box", price: 8 },
+    { id: 7, name: "Red Rose Bouquet", price: 10 },
+    { id: 8, name: "Men’s T-Shirt", price: 15 },
+    { id: 9, name: "Chocolate Box", price: 8 },
+    { id: 10, name: "Red Rose Bouquet", price: 10 },
+    { id: 11, name: "Men’s T-Shirt", price: 15 },
+    { id: 12, name: "Chocolate Box", price: 8 },
+    { id: 13, name: "Red Rose Bouquet", price: 10 },
+    { id: 14, name: "Men’s T-Shirt", price: 15 },
+    { id: 15, name: "Chocolate Box", price: 8 },
+    { id: 16, name: "Red Rose Bouquet", price: 10 },
+    { id: 17, name: "Men’s T-Shirt", price: 15 },
+    { id: 18, name: "Chocolate Box", price: 8 },
+  ];
+  

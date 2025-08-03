@@ -1,0 +1,15 @@
+/* Global Styles */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #ececec;
+}
+
+/* Main container */
+.container {
+  max-width: 1700px;
+  margin: auto;
+  padding: 20px;
+  background-color: #ffffff;
+}
+
