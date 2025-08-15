@@ -1,5 +1,4 @@
 
-
 import React from 'react';
 import AdBanner from '../Components/Adcomponent';
 import CategoryList from '../Components/CategoryList';

@@ -1,6 +1,11 @@
 import React from 'react';
+import OrderPlace from '../Pages/OrderPlace';
+import { useNavigate } from 'react-router-dom';
+
+
 
 const ProductCard = ({ product }) => {
+    const navigateor=useNavigate()
     const AddToCart=(item)=>{
         const data=JSON.parse(localStorage.getItem("cartproducts")||"[]")
         data.push(item)
@@ -18,8 +23,8 @@ const ProductCard = ({ product }) => {
     }}>
       <p style={{ fontWeight: 'bold' }}>{product.name}</p>
       <p>${product.price}</p>
-      <div>
-        <button>Order Now</button>
+      <div style={{display:"flex",justifyContent:"space-between"}}>
+        <button onClick={()=> navigateor("orderplece")}>Order Now</button>
         <button onClick={()=> AddToCart(product)}>add to Cart</button>
       </div>
     </div>

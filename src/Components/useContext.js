@@ -10,7 +10,7 @@ export const CartProvider = ({ children }) => {
 
   const [categorieName,setcategoryName]=useState("")
   const [cartItems, setCartItems] = useState([]);
-
+const [showAddressForm,setAddressValu]=useState(false)
   // Load from localStorage initially
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cartproducts") || "[]");
@@ -23,7 +23,7 @@ export const CartProvider = ({ children }) => {
   }, [cartItems]);
 
   return (
-    <CartContext.Provider value={{ cartItems, setCartItems,categorieName,setcategoryName }}>
+    <CartContext.Provider value={{ cartItems, setCartItems,categorieName,setcategoryName,showAddressForm,setAddressValu}}>
       {children}
     </CartContext.Provider>
   );
