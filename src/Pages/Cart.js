@@ -1,7 +1,6 @@
 
 import React, { useState, useContext } from 'react';
 import Header from '../Components/Header';
-import Footer from '../Components/Footer';
 import { CartContext } from '../Components/useContext';
 
 const Cart = () => {
@@ -63,7 +62,6 @@ const Cart = () => {
           <button style={styles.orderButton}>Order Now</button>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

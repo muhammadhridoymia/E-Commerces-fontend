@@ -20,7 +20,7 @@ function Signin() {
       const data = await res.json();
       console.log(data)
       if (res.ok) {
-        localStorage.setItem("user", JSON.stringify({data}));
+        localStorage.setItem("user", JSON.stringify(data.user));
         alert("Sign in successful!");
         console.log("User Data:", data);
         
