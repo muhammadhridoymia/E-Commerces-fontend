@@ -1,63 +1,50 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CartContext } from './useContext';
+import '../Style/ProductCard.css';
 
 const ProductCard = ({ product }) => {
-  const navigateor = useNavigate();
+  const navigate = useNavigate();
   const { setproductData } = useContext(CartContext);
 
-  const AddToCart = (item) => {
-    const data = JSON.parse(localStorage.getItem("cartproducts") || "[]");
-    data.push(item);
+  const addToCart = (item) => {
+    let data = JSON.parse(localStorage.getItem("cartproducts") || "[]");
+
+    // check if product already exists
+    const existingIndex = data.findIndex(p => p.id === item.id);
+    if (existingIndex !== -1) {
+      data[existingIndex].quantity += 1;
+    } else {
+      data.push({ ...item, quantity: 1 });
+    }
+
     localStorage.setItem("cartproducts", JSON.stringify(data));
+    alert(`${item.name} added to cart!`);
   };
 
-  const OrderNow = (item) => {
+  const orderNow = (item) => {
     setproductData(item);
-    navigateor("/orderplace");
+    navigate("/orderplace");
   };
 
   const outOfStock = product.stock === 0 || product.isOutOfStock;
 
   return (
-    <div style={{
-      border: '1px solid #ccc',
-      padding: '10px',
-      borderRadius: '8px',
-      width: '300px',
-      height:"350px",
-      backgroundColor: '#fff',
-      boxSizing: 'border-box',
-      position: 'relative'
-    }}>
+    <div className="product-card">
       <img
-        src={product.images[0]?.url}
+        src={product.images?.[0]?.url || "https://via.placeholder.com/150"}
         alt={product.name || "product"}
-        style={{ width: '100%', height:'200px', objectFit:'cover', borderRadius:'8px'}}
+        className="product-image"
       />
-      {outOfStock && (
-        <div style={{
-          position: 'absolute',
-          top: '10px',
-          left: '10px',
-          backgroundColor: 'crimson',
-          color: 'white',
-          padding: '5px',
-          borderRadius: '5px',
-          fontWeight: 'bold'
-        }}>
-          Out of Stock
-        </div>
-      )}
-      <p style={{ fontWeight: 'bold' }}>{product.name}</p>
-      <p>${product.price}</p>
-      <div style={{display:"flex",justifyContent:"space-between"}}>
-        <button onClick={() => OrderNow(product)} disabled={outOfStock}>
-          Order Now
-        </button>
-        <button onClick={() => AddToCart(product)} disabled={outOfStock}>
-          Add to Cart
-        </button>
+      
+      {outOfStock && <div className="out-of-stock">Out of Stock</div>}
+
+      <p className="product-name">{product.name || "Unnamed Product"}</p>
+      <p className="product-price">${product.price || "N/A"}</p>
+
+      <div className="product-actions">
+        <button onClick={() => orderNow(product)} disabled={outOfStock}>Order Now</button>
+        <button onClick={() => addToCart(product)} disabled={outOfStock}>Add to Cart</button>
       </div>
     </div>
   );

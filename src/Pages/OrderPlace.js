@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { CartContext } from '../Components/useContext';
-import { useContext } from 'react';
+import '../Style/OrderPlace.css'
 
 function OrderPlace() {
-    const { productData }=useContext(CartContext)
+  const { productData } = useContext(CartContext);
   const [user, setUser] = useState(null);
-  const [Thumbnailphoto,setThumbnailphoto]=useState()
+  const [thumbnailPhoto, setThumbnailPhoto] = useState();
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -19,110 +19,57 @@ function OrderPlace() {
     }
   }, []);
 
-  if (!user) {
-    // here will a address form later
-    return <p>Please sign in to place an order</p>;
-  }
+  if (!user) return <p className="sign-in-message">Please sign in to place an order</p>;
 
-  const lastAddress = user.addresses && user.addresses.length > 0
-    ? user.addresses[user.addresses.length - 1]
-    : null;
+  const lastAddress = user.addresses?.[user.addresses.length - 1] || null;
 
   return (
-    <div style={{ padding: "20px" }}>
-      <div style={{ width: "1500px", display: "flex", margin: "auto", gap: "20px" }}>
+    <div className="order-container">
+      <div className="order-wrapper">
 
-        {/* Left Side: Product */}
-        <div style={{ width: "50%" }}>
-          <div style={{ height: "1000px", width: "100%", backgroundColor: "#f4f4f4", padding: "20px" }}>
+        {/* Left Side */}
+        <div className="order-left">
+          <div className="product-card">
             
             {/* Main Photo */}
-            <div style={{
-              height: "500px",
-              width: "90%",
-              backgroundColor: "#aaadab",
-              margin: "auto",
-              borderRadius: "20px",
-              textAlign: "center",
-              color: "white",
-              lineHeight: "500px"
-            }}>
-                <img
-                src={Thumbnailphoto ||productData.images[0].url}
-                alt='product'
-                style={{ maxHeight: "100%", maxWidth:'100%',}}
-                />
+            <div className="main-photo">
+              <img src={thumbnailPhoto || productData.images[0].url} alt="product" />
             </div>
 
-            {/* Thumbnail Photos */}
-            <div style={{ display: "flex", flexWrap: "wrap", marginTop: "10px", gap: "10px" }}>
-              {productData.images.map((img,index) => (
-                <div key={index} style={{
-                  width: "70px",
-                  height: "70px",
-                  backgroundColor: "#aaadab",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  color: "white"
-                }}>
-                <img
-                onClick={()=>setThumbnailphoto(img.url)}
-                src={img.url}
-                alt='product'
-                style={{ maxHeight: "100%", maxWidth:'100%',}}
-                />
+            {/* Thumbnails */}
+            <div className="thumbnail-container">
+              {productData.images.map((img, index) => (
+                <div key={index} className="thumbnail" onClick={() => setThumbnailPhoto(img.url)}>
+                  <img src={img.url} alt="product" />
                 </div>
               ))}
             </div>
 
             {/* Product Info */}
-            <div style={{ marginTop: "20px", color: "#333" }}>
+            <div className="product-info">
               <h2>{productData.name}</h2>
-              <p>Price:{productData.price}</p>
+              <p>Price: {productData.price}</p>
               <p>{productData.description}</p>
-
-              {/* Quantity */}
-              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "10px" }}>
-                <button style={{ width: "40px", height: "30px", backgroundColor: "red", color: "white" }}>-</button>
-                <div style={{ width: "30px", textAlign: "center" }}>0</div>
-                <button style={{ width: "40px", height: "30px", backgroundColor: "#06c954", color: "white" }}>+</button>
-              </div>
-
-              {/* Color Selection */}
-              <div style={{ marginTop: "20px" }}>
-                <label>Choose Color:</label>
-                <select style={{ width: "200px", marginLeft: "10px" }}>
-                  <option>Black</option>
-                  <option>White</option>
-                  <option>Blue</option>
-                  <option>Green</option>
-                </select>
-              </div>
-
-              {/* Product Details */}
-              <div style={{ marginTop: "30px" }}>
-                <button>View Product Details</button>
-              </div>
+              <button>View Product Details</button>
             </div>
 
           </div>
         </div>
 
-        {/* Right Side: Order Summary */}
-        <div style={{ width: "50%" }}>
-          <div style={{ height: "1000px", width: "100%", backgroundColor: "#e1e6e3", padding: "20px" }}>
+        {/* Right Side */}
+        <div className="order-right">
+          <div className="order-summary-card">
 
             {/* Last Address */}
-            <div style={{ width: "90%", margin: "auto", marginBottom: "30px", padding: "20px", backgroundColor: "#aaadab", borderRadius: "10px", color: "white" }}>
+            <div className="saved-address">
               <h3>Saved Address:</h3>
               {lastAddress ? (
-                <div style={{ border: "1px solid #ccc", padding: "15px", marginTop: "10px", color: "#000", backgroundColor: "#fff", borderRadius: "5px" }}>
+                <div className="address-box">
                   <p>Country: {lastAddress.country || "N/A"}</p>
                   <p>City: {lastAddress.city || "N/A"}</p>
                   <p>Area: {lastAddress.area || "N/A"}</p>
                   <p>House: {lastAddress.home || "N/A"}</p>
-                  <p>House Details: {lastAddress.addressDetails || "N/A"}</p>
+                  <p>Details: {lastAddress.addressDetails || "N/A"}</p>
                   <p>Phone: {lastAddress.phone || "N/A"}</p>
                 </div>
               ) : (
@@ -130,41 +77,40 @@ function OrderPlace() {
               )}
             </div>
 
-            {/* Discount Code */}
-            <div style={{ display: "flex", gap: "10px", marginBottom: "30px" }}>
-              <input style={{ flex: 1, padding: "10px" }} placeholder='Discount Code' />
-              <button style={{ padding: "10px 20px" }}>Apply</button>
+            {/* Discount */}
+            <div className="discount-code">
+              <input placeholder="Discount Code" />
+              <button>Apply</button>
             </div>
 
-            {/* Order Summary */}
-            <div style={{ marginBottom: "30px" }}>
+            {/* Summary */}
+            <div className="summary">
               <h2>Order Summary</h2>
-              <p>Total Price:{productData.price}</p>
+              <p>Total Price: {productData.price}</p>
               <p>Total Products: 1</p>
               <p>Delivery Fee: 20$</p>
             </div>
 
-            {/* Payment Options */}
-            <div style={{ marginBottom: "30px" }}>
-              <h3>Select Payment Option</h3>
-              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
-                <input type="checkbox" />
-                <p>Cash On Delivery</p>
-              </div>
-              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
-                <input type="checkbox" />
-                <p>Bikash</p>
-              </div>
-              <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
-                <input type="checkbox" />
-                <p>Nogad</p>
-              </div>
+            {/* Color Selection */}
+            <div className="color-selection">
+              <label>Choose Color:</label>
+              <select>
+                <option>Black</option>
+                <option>White</option>
+                <option>Blue</option>
+                <option>Green</option>
+              </select>
             </div>
 
-            {/* Confirm Order */}
-            <button style={{ width: "100%", height: "80px", backgroundColor: "#05ad59", color: "white", fontSize: "20px" }}>
-              Confirm Order
-            </button>
+            {/* Payment Options */}
+            <div className="payment-options">
+              <h3>Select Payment Option</h3>
+              <label><input type="checkbox" /> Cash On Delivery</label>
+              <label><input type="checkbox" /> Bikash</label>
+              <label><input type="checkbox" /> Nogad</label>
+            </div>
+
+            <button className="confirm-order">Confirm Order</button>
 
           </div>
         </div>

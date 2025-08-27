@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../Style/Header.css';
 
 const Header = () => {
   const navigateor = useNavigate();
@@ -26,43 +27,27 @@ const Header = () => {
   }, []);
 
   return (
-    <header style={{
-      position: "fixed",
-      width: '100%',
-      backgroundColor: '#008b00',
-      padding: '10px 20px',
-      boxSizing: 'border-box',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      borderBottom: '1px solid #ddd'
-    }}>
-      <div style={{ fontWeight: 'bold', fontSize: '20px', color: "white" }}>
+    <header className="header">
+      <div className="logo" onClick={() => navigateor("/")}>
         MyShop
       </div>
 
       <input
         type="text"
         placeholder="Search products..."
-        style={{
-          padding: '8px',
-          borderRadius: '5px',
-          border: '1px solid #ccc',
-          width: '300px',
-          outline: 'none'
-        }}
+        className="search-bar"
       />
 
-      <div style={{ display: 'flex', gap: '20px' }}>
-        <button onClick={() => navigateor("/cart")} style={iconStyle}>
-          🛒 {cartitem.length}
+      <div className="header-actions">
+        <button onClick={() => navigateor("/cart")} className="icon-btn">
+          🛒 <span className="badge">{cartitem.length}</span>
         </button>
-        <button onClick={() => navigateor("/profile")} style={iconStyle}>
+        <button onClick={() => navigateor("/profile")} className="icon-btn">
           👤
         </button>
         {!user && (
-          <button onClick={() => navigateor("/signin")} style={iconStyle}> 
-            Signin
+          <button onClick={() => navigateor("/signin")} className="signin-btn"> 
+            Sign In
           </button>
         )}
       </div>
@@ -70,13 +55,4 @@ const Header = () => {
   );
 };
 
-const iconStyle = {
-  background: 'none',
-  border: 'none',
-  fontSize: '20px',
-  cursor: 'pointer',
-  color: 'white'
-};
-
 export default Header;
-

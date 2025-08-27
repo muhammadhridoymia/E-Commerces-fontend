@@ -1,0 +1,49 @@
+.home-container {
+  padding: 0 20px;
+}
+
+.status-message {
+  padding: 20px;
+  text-align: center;
+}
+
+.status-message.error {
+  color: red;
+}
+
+.products-section {
+  padding: 20px 0;
+}
+
+.products-section h3 {
+  margin-bottom: 15px;
+}
+
+.products-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.see-more-container {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.see-more-button {
+  height: 60px;
+  width: 300px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.see-more-button:hover {
+  background-color: #218838;
+}

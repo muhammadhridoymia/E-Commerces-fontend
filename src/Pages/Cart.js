@@ -34,6 +34,11 @@ const Cart = () => {
           ) : (
             cartItems.map((item, index) => (
               <div key={index} style={styles.card}>
+                <img
+                src={item.images[0].url}
+                alt={item.name || "product"}
+                style={{ width: '100%', height: 'auto', objectFit: 'cover'}}
+                />
                 <p style={styles.productName}>{item.name}</p>
                 <p>${item.price}</p>
                 <p>ID: {item.id}</p>
@@ -87,7 +92,7 @@ const styles = {
     padding: '10px',
     borderRadius: '8px',
     width: '300px',
-    height: '350px',
+    height: 'auto',
     backgroundColor: '#ffffff',
     boxSizing: 'border-box',
     marginBottom: '20px',

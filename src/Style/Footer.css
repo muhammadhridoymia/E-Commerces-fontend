@@ -1,0 +1,83 @@
+/* src/Components/Footer.css */
+.footer {
+  background: linear-gradient(135deg, #1a1a1a, #333333);
+  color: white;
+  padding: 40px 20px 20px;
+  margin-top: 60px;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.footer-brand {
+  flex: 1 1 250px;
+  margin-bottom: 20px;
+}
+
+.footer-brand h2 {
+  margin: 0;
+}
+
+.footer-brand p {
+  color: #bbb;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.footer-links {
+  flex: 1 1 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.footer-links a {
+  color: #ffffff;
+  text-decoration: none;
+  margin: 6px 0;
+  font-size: 14px;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: #ffcc00;
+}
+
+.footer-social {
+  flex: 1 1 200px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.footer-social a {
+  margin: 0 10px;
+  color: #ffffff;
+  font-size: 18px;
+  transition: transform 0.3s, color 0.3s;
+}
+
+.footer-social a:hover {
+  color: #ffcc00;
+  transform: scale(1.2);
+}
+
+.footer-bottom {
+  border-top: 1px solid #444;
+  margin-top: 20px;
+  padding-top: 10px;
+  text-align: center;
+}
+
+.footer-bottom p {
+  margin: 0;
+  font-size: 13px;
+  color: #aaa;
+}

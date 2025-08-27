@@ -1,0 +1,77 @@
+.profile-container {
+  padding: 20px;
+  width: 800px;
+  margin: auto;
+  background-color: #ffffff;
+  min-height: 900px;
+}
+
+.profile-title {
+  margin: 50px 0;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.profile-content {
+  margin: 50px 0;
+}
+
+.profile-photo-btn {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  background-color: #848a81;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.user-info p {
+  margin: 10px 0;
+  font-size: 18px;
+}
+
+.logout-btn {
+  padding: 8px 12px;
+  border-radius: 5px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.address-section {
+  margin-top: 50px;
+}
+
+.add-address-btn {
+  padding: 8px 12px;
+  border-radius: 5px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.address-card {
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+.order-history {
+  margin-top: 50px;
+}
+
+.order-history-btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
