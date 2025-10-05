@@ -1,3 +1,7 @@
+An eCommerce website allows customers to browse products, search, filter, add to cart, and securely purchase online with payment and shipping options.
+It also includes admin features like product management, order tracking, inventory, customer support, analytics, and discounts.
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
