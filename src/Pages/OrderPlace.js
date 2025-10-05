@@ -1,8 +1,11 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { CartContext } from '../Components/useContext';
+import { useNavigate } from 'react-router-dom';
+import Navbar from '../Components/Navbar';
 import '../Style/OrderPlace.css'
 
 function OrderPlace() {
+  const navigate=useNavigate()
   const { productData } = useContext(CartContext);
   const [user, setUser] = useState(null);
   const [thumbnailPhoto, setThumbnailPhoto] = useState();
@@ -18,12 +21,19 @@ function OrderPlace() {
       }
     }
   }, []);
+  useEffect(() => {
+  if (!productData || Object.keys(productData).length === 0) {
+    navigate("/");
+  }
+}, [productData, navigate]);
 
   if (!user) return <p className="sign-in-message">Please sign in to place an order</p>;
 
   const lastAddress = user.addresses?.[user.addresses.length - 1] || null;
 
   return (
+    <>
+    <Navbar/>
     <div className="order-container">
       <div className="order-wrapper">
 
@@ -73,7 +83,10 @@ function OrderPlace() {
                   <p>Phone: {lastAddress.phone || "N/A"}</p>
                 </div>
               ) : (
-                <p>No addresses found. Add a new address.</p>
+                <div>
+                  <p>No addresses found. Add a new address.</p>
+                  <button onClick={()=> navigate("/addressform")}>Add Address</button>
+                </div>
               )}
             </div>
 
@@ -86,6 +99,7 @@ function OrderPlace() {
             {/* Summary */}
             <div className="summary">
               <h2>Order Summary</h2>
+              <p>Name: {productData.name}</p>
               <p>Total Price: {productData.price}</p>
               <p>Total Products: 1</p>
               <p>Delivery Fee: 20$</p>
@@ -117,6 +131,7 @@ function OrderPlace() {
 
       </div>
     </div>
+    </>
   );
 }
 

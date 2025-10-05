@@ -1,8 +1,10 @@
-.category-container {
+.categorylist-container {
   width: 1700px;
   margin: auto;
   background: #ffffff;
   padding: 30px;
+  display: flex;
+  flex-direction: column;
 }
 
 .status-message {

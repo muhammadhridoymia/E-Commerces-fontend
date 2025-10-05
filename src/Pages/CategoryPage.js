@@ -1,17 +1,19 @@
 import React, { useEffect, useState, useContext } from "react";
 import { CartContext } from "../Components/useContext";
 import ProductCard from "../Components/ProductCard";
-import Header from "../Components/Header";
 import Footer from "../Components/Footer";
+import { useNavigate } from "react-router-dom";
 import '../Style/CategoryPage.css';
 
 const CategoryPage = () => {
+  const navigate=useNavigate
   const { categorieName } = useContext(CartContext);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+     
     if (!categorieName) {
       setProducts([]);
       return;
@@ -33,9 +35,10 @@ const CategoryPage = () => {
     })();
   }, [categorieName]);
 
+
   return (
     <div>
-      <div className="category-container">
+      <div className="categorylist-container">
         <h1>{categorieName || "Category"}</h1>
 
         {loading && <div className="status-message">Loading products...</div>}
@@ -43,7 +46,7 @@ const CategoryPage = () => {
 
         <div className="products-grid">
           {products.map((p) => (
-            <ProductCard key={p._id || p.id || p.name} product={p} />
+            <ProductCard product={p} />
           ))}
         </div>
 

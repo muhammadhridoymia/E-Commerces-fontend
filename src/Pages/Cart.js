@@ -1,30 +1,47 @@
 
-import React, { useState, useContext } from 'react';
-import Header from '../Components/Header';
+import React, { useState, useContext,useEffect} from 'react';
+import Navbar from '../Components/Navbar';
 import { CartContext } from '../Components/useContext';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
-  const [selectedItems, setSelectedItems] = useState([]);
-  const { cartItems, setCartItems } = useContext(CartContext);
 
-  const totalPrice = selectedItems.reduce((total, item) => total + item.price, 0);
+   const navigate=useNavigate()
+   const {setproductData}=useContext(CartContext)
+   const [selectedItems, setSelectedItems] = useState([]);
+   const [cartItems,setCart]=useState([])
+   const {setCartItems } = useContext(CartContext);
 
-  const removeItem = (index) => {
+     // Load from localStorage initially
+     useEffect(() => {
+       const savedCart = JSON.parse(localStorage.getItem("cartproducts") || "[]");
+       setCart(savedCart);
+     }, []);
+
+   const totalPrice = selectedItems.reduce((total, item) => total + item.price, 0);
+
+   const removeItem = (index) => {
     const updatedCart = cartItems.filter((_, i) => i !== index);
     setCartItems(updatedCart);
-  };
+   };
 
-  const handleCheckboxChange = (item, isChecked) => {
+   const handleCheckboxChange = (item, isChecked) => {
     if (isChecked) {
       setSelectedItems((prev) => [...prev, item]);
     } else {
       setSelectedItems((prev) => prev.filter((p) => p !== item));
     }
-  };
+    };
 
-  return (
+    const orderNow = (item) => {
+    setproductData(item);
+    navigate("/orderplace");
+    };
+
+
+   return (
     <>
-      <Header />
+      <Navbar/>
       <div style={styles.container}>
         <h2 style={styles.heading}>My Cart</h2>
 
@@ -45,7 +62,7 @@ const Cart = () => {
                 <button onClick={() => removeItem(index)} style={styles.button}>
                   Remove
                 </button>
-                <button style={styles.button}>Buy Now</button>
+                <button style={styles.button} onClick={()=> orderNow(item) }>Buy Now</button>
                 <div>
                   <label>
                     <input

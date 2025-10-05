@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../Style/Header.css';
+import '../Style/Navbar.css';
 
-const Header = () => {
+const Navbar = () => {
   const navigateor = useNavigate();
-  const [cartitem, setcartitem] = useState([]);
+  const [cartitem ,setcartitem] = useState([]);
   const [user, setUser] = useState();
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="header">
+    <header className="navbar">
       <div className="logo" onClick={() => navigateor("/")}>
         MyShop
       </div>
@@ -37,8 +37,6 @@ const Header = () => {
         placeholder="Search products..."
         className="search-bar"
       />
-
-      <div className="header-actions">
         <button onClick={() => navigateor("/cart")} className="icon-btn">
           🛒 <span className="badge">{cartitem.length}</span>
         </button>
@@ -50,9 +48,8 @@ const Header = () => {
             Sign In
           </button>
         )}
-      </div>
     </header>
   );
 };
 
-export default Header;
+export default Navbar;

@@ -1,42 +1,12 @@
-.category-section {
-  padding: 20px;
-}
-
-.category-title {
-  background: linear-gradient(135deg, #26b626, #1a8f1a);
-  font-size: 32px;
-  border-radius: 8px;
-  color: white;
-  padding: 12px 20px;
-  margin-bottom: 20px;
-  text-align: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
 .category-container {
   display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
+  flex-wrap: wrap; /* wrap buttons to next line on small screens */
   justify-content: center;
+  gap: 10px;
 }
 
-.category-card {
-  border: none;
-  height: 150px;
-  width: 150px;
-  border-radius: 12px;
-  font-size: 18px;
-  font-weight: bold;
-  background: white;
-  color: #333;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.category-card:hover {
-  background: #26b626;
-  color: white;
-  transform: translateY(-5px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+.category-container button {
+  flex: 1 1 100px; /* grow, shrink, base width 100px */
+  min-width: 80px; /* optional, don't let button get too small */
+  height: 50px;
 }

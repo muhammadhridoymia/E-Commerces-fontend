@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import AdBanner from '../Components/Adcomponent';
 import CategoryList from '../Components/CategoryList';
 import ProductCard from '../Components/ProductCard';
-import Header from '../Components/Header';
+import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import { categories } from '../Data/Categroy';
 import '../Style/Home.css';
@@ -30,7 +30,7 @@ const Home = () => {
 
   return (
     <>
-      <Header />
+      <Navbar/>
       <div className="home-container">
         <AdBanner />
         <CategoryList categories={categories} />

@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { CartContext } from './useContext';
-import '../Style/ProductCard.css';
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { CartContext } from "./useContext";
+import "../Style/ProductCard.css";
 
 const ProductCard = ({ product }) => {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ const ProductCard = ({ product }) => {
     let data = JSON.parse(localStorage.getItem("cartproducts") || "[]");
 
     // check if product already exists
-    const existingIndex = data.findIndex(p => p.id === item.id);
+    const existingIndex = data.findIndex((p) => p._id === item._idid);
     if (existingIndex !== -1) {
       data[existingIndex].quantity += 1;
     } else {
@@ -36,15 +36,19 @@ const ProductCard = ({ product }) => {
         alt={product.name || "product"}
         className="product-image"
       />
-      
+
       {outOfStock && <div className="out-of-stock">Out of Stock</div>}
 
       <p className="product-name">{product.name || "Unnamed Product"}</p>
       <p className="product-price">${product.price || "N/A"}</p>
 
       <div className="product-actions">
-        <button onClick={() => orderNow(product)} disabled={outOfStock}>Order Now</button>
-        <button onClick={() => addToCart(product)} disabled={outOfStock}>Add to Cart</button>
+        <button onClick={() => orderNow(product)} disabled={outOfStock}>
+          Order Now
+        </button>
+        <button onClick={() => addToCart(product)} disabled={outOfStock}>
+          Add to Cart
+        </button>
       </div>
     </div>
   );

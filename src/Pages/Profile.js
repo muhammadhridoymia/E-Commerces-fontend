@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from '../Components/Header';
+import Navbar from '../Components/Navbar';
 import Signin from './Signin';
 import '../Style/UserProfile.css';
 
@@ -31,7 +31,7 @@ function UserProfile() {
 
   return (
     <>
-      <Header />
+      <Navbar/>
       <div className="profile-container">
         <div className="profile-title">My Profile</div>
 
