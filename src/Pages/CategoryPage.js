@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import '../Style/CategoryPage.css';
 
 const CategoryPage = () => {
-  const navigate=useNavigate
+  const navigate=useNavigate()
   const { categorieName } = useContext(CartContext);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);

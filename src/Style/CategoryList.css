@@ -6,6 +6,7 @@
 }
 
 .category-container button {
+  border: none;
   flex: 1 1 100px; /* grow, shrink, base width 100px */
   min-width: 80px; /* optional, don't let button get too small */
   height: 50px;

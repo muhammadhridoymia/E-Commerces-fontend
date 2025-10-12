@@ -9,6 +9,70 @@ function OrderPlace() {
   const { productData } = useContext(CartContext);
   const [user, setUser] = useState(null);
   const [thumbnailPhoto, setThumbnailPhoto] = useState();
+  const [paymentOption,setPaymentOption]=useState()
+  const [selectedColor,setSelectedColor]=useState()
+  const [loading,setLoading]=useState(false)
+
+  const Total_price=productData.price+20
+  
+
+
+  const sendData = async () => {
+  if (!paymentOption) {
+    alert("Please select a payment method");
+    return;
+  }
+
+  if (!lastAddress) {
+    alert("Please add an address before confirming");
+    return;
+  }
+
+  const orderData = {
+    identifier:user.identifier,
+    product_id:productData._id,
+    product_name: productData.name,
+    product_description:productData.description,
+    product_img:productData.images,
+    product_price:productData.price,
+    product_category:productData.category,
+    product_subcategory:productData.subcategory,
+    product_brand:productData.brand,
+    address: lastAddress,
+    color: selectedColor,
+    paymentMethod: paymentOption,
+    deliveryFee: 20,
+    totalPrice: Total_price,
+  };
+  console.log(orderData)
+
+  try {
+    setLoading(true)
+    const response = await fetch("http://localhost:5000/api/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(orderData),
+    });
+
+    const result = await response.json();
+    if (response.ok) {
+      setLoading(false)
+      alert("✅ Order placed successfully!");
+      navigate("/order-success");
+    } else {
+      setLoading(false)
+      alert("❌ Failed to place order: " + result.message);
+    }
+  } catch (error) {
+    setLoading(false)
+    console.error("Error sending order:", error);
+    alert("Something went wrong. Please try again.");
+  }
+};
+
+
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -30,7 +94,7 @@ function OrderPlace() {
   if (!user) return <p className="sign-in-message">Please sign in to place an order</p>;
 
   const lastAddress = user.addresses?.[user.addresses.length - 1] || null;
-
+  
   return (
     <>
     <Navbar/>
@@ -100,15 +164,16 @@ function OrderPlace() {
             <div className="summary">
               <h2>Order Summary</h2>
               <p>Name: {productData.name}</p>
-              <p>Total Price: {productData.price}</p>
+              <p>Price: {productData.price}</p>
               <p>Total Products: 1</p>
               <p>Delivery Fee: 20$</p>
+              <p>Total Price:{Total_price}</p>
             </div>
 
             {/* Color Selection */}
             <div className="color-selection">
               <label>Choose Color:</label>
-              <select>
+              <select value={selectedColor} onChange={(e) => setSelectedColor(e.target.value)}>
                 <option>Black</option>
                 <option>White</option>
                 <option>Blue</option>
@@ -118,13 +183,42 @@ function OrderPlace() {
 
             {/* Payment Options */}
             <div className="payment-options">
-              <h3>Select Payment Option</h3>
-              <label><input type="checkbox" /> Cash On Delivery</label>
-              <label><input type="checkbox" /> Bikash</label>
-              <label><input type="checkbox" /> Nogad</label>
-            </div>
+  <h3>Select Payment Option</h3>
 
-            <button className="confirm-order">Confirm Order</button>
+  <label>
+    <input
+      type="radio"
+      name="payment"
+      value="Cash On Delivery"
+      onChange={(e) => setPaymentOption(e.target.value)}
+    />
+    Cash On Delivery
+  </label>
+
+  <label>
+    <input
+      type="radio"
+      name="payment"
+      value="Bikash"
+      onChange={(e) => setPaymentOption(e.target.value)}
+    />
+    Bikash
+  </label>
+
+  <label>
+    <input
+      type="radio"
+      name="payment"
+      value="Nogad"
+      onChange={(e) => setPaymentOption(e.target.value)}
+    />
+    Nogad
+  </label>
+</div>
+
+
+            <button className="confirm-order" onClick={sendData}
+            >{loading?<div className='loading'></div>:"Confirm Order"}</button>
 
           </div>
         </div>
