@@ -10,20 +10,23 @@ const Cart = () => {
    const {setproductData}=useContext(CartContext)
    const [selectedItems, setSelectedItems] = useState([]);
    const [cartItems,setCart]=useState([])
-   const {setCartItems } = useContext(CartContext);
 
-     // Load from localStorage initially
+     // Load from backend
      useEffect(() => {
-       const savedCart = JSON.parse(localStorage.getItem("cartproducts") || "[]");
-       setCart(savedCart);
+       const identifier = JSON.parse(localStorage.getItem('user'))?.identifier || null;
+       fetch(`http://localhost:5000/api/get/cart/${identifier}`)
+         .then((res) => res.json())
+         .then((data) => {
+           setCart(data.products || []);
+         })
+         .catch((err) => {
+           console.error('Error fetching cart items:', err);
+         });
      }, []);
 
    const totalPrice = selectedItems.reduce((total, item) => total + item.price, 0);
 
-   const removeItem = (index) => {
-    const updatedCart = cartItems.filter((_, i) => i !== index);
-    setCartItems(updatedCart);
-   };
+  
 
    const handleCheckboxChange = (item, isChecked) => {
     if (isChecked) {
@@ -59,7 +62,7 @@ const Cart = () => {
                 <p style={styles.productName}>{item.name}</p>
                 <p>${item.price}</p>
                 <p>ID: {item.id}</p>
-                <button onClick={() => removeItem(index)} style={styles.button}>
+                <button  style={styles.button}>
                   Remove
                 </button>
                 <button style={styles.button} onClick={()=> orderNow(item) }>Buy Now</button>

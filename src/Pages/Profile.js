@@ -64,7 +64,7 @@ function UserProfile() {
             )}
           </div>
 
-          {/* Order History */}
+          <button onClick={()=> navigate("/myorders")} style={{backgroundColor:"green",color:"white",border:"none"}}>My Orders</button>
           <div className="order-history">
             <button onClick={() => navigate("/orderhistory")} className="order-history-btn">All Order History</button>
           </div>

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext ,useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "./useContext";
 import "../Style/ProductCard.css";
@@ -6,21 +6,35 @@ import "../Style/ProductCard.css";
 const ProductCard = ({ product }) => {
   const navigate = useNavigate();
   const { setproductData } = useContext(CartContext);
+  const [loading, setLoading] = useState(false);
+
+  
 
   const addToCart = (item) => {
-    let data = JSON.parse(localStorage.getItem("cartproducts") || "[]");
+    setLoading(true);
+    const identifier= localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).identifier : null;
+    const product_id= item._id;
+    
+     fetch(`http://localhost:5000/api/add/to/cart`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ identifier, product_id }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setLoading(false);
+        alert("Product added to cart");
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.error("Error adding to cart:", err);
+        alert("Failed to add product to cart");
+      });
+  }
 
-    // check if product already exists
-    const existingIndex = data.findIndex((p) => p._id === item._idid);
-    if (existingIndex !== -1) {
-      data[existingIndex].quantity += 1;
-    } else {
-      data.push({ ...item, quantity: 1 });
-    }
 
-    localStorage.setItem("cartproducts", JSON.stringify(data));
-    alert(`${item.name} added to cart!`);
-  };
 
   const orderNow = (item) => {
     setproductData(item);
@@ -47,7 +61,7 @@ const ProductCard = ({ product }) => {
           Order Now
         </button>
         <button onClick={() => addToCart(product)} disabled={outOfStock}>
-          Add to Cart
+          {loading ? "Adding..." : "Add to Cart"}
         </button>
       </div>
     </div>

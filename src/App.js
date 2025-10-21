@@ -10,6 +10,7 @@ import AddressForm from './Components/AddressForm';
 import OrderPlace from './Pages/OrderPlace';
 import Singin from './Pages/Signin';
 import Login from './Pages/Login';
+import MyOrders from './Components/MyOrders';
 const App = () => {
   return (
     <CartProvider>
@@ -23,6 +24,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
         <Route path='/cart' element={<Cart/>}/>
+        <Route path='/myorders' element={<MyOrders/>}/>
     </Routes>
     </CartProvider>
   );
