@@ -7,22 +7,12 @@ import { useNavigate } from 'react-router-dom';
 const Cart = () => {
 
    const navigate=useNavigate()
-   const {setproductData}=useContext(CartContext)
+   const {setproductData,cartItems,CartDataFromBackend}=useContext(CartContext)
    const [selectedItems, setSelectedItems] = useState([]);
-   const [cartItems,setCart]=useState([])
 
-     // Load from backend
-     useEffect(() => {
-       const identifier = JSON.parse(localStorage.getItem('user'))?.identifier || null;
-       fetch(`http://localhost:5000/api/get/cart/${identifier}`)
-         .then((res) => res.json())
-         .then((data) => {
-           setCart(data.products || []);
-         })
-         .catch((err) => {
-           console.error('Error fetching cart items:', err);
-         });
-     }, []);
+    useEffect(() => {
+      CartDataFromBackend()
+    }, []);
 
    const totalPrice = selectedItems.reduce((total, item) => total + item.price, 0);
 

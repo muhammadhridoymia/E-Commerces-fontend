@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useContext} from 'react';
+import { CartContext } from './useContext';
 import '../Style/Navbar.css';
 
 const Navbar = () => {
+  const { cartItems} = useContext(CartContext);
   const navigateor = useNavigate();
-  const [cartitem ,setcartitem] = useState([]);
   const [user, setUser] = useState();
 
   useEffect(() => {
@@ -21,10 +23,6 @@ const Navbar = () => {
     }
   }, []);
 
-  useEffect(() => {
-    const cartData = JSON.parse(localStorage.getItem("cartproducts") || "[]");
-    setcartitem(cartData);
-  }, []);
 
   return (
     <header className="navbar">
@@ -38,7 +36,7 @@ const Navbar = () => {
         className="search-bar"
       />
         <button onClick={() => navigateor("/cart")} className="icon-btn">
-          🛒 <span className="badge">{cartitem.length}</span>
+          🛒 <span className="badge">{cartItems.length || 0}</span>
         </button>
         <button onClick={() => navigateor("/profile")} className="icon-btn">
           👤

@@ -5,7 +5,7 @@ import "../Style/ProductCard.css";
 
 const ProductCard = ({ product }) => {
   const navigate = useNavigate();
-  const { setproductData } = useContext(CartContext);
+  const { setproductData,CartDataFromBackend } = useContext(CartContext);
   const [loading, setLoading] = useState(false);
 
   
@@ -26,6 +26,7 @@ const ProductCard = ({ product }) => {
       .then((data) => {
         setLoading(false);
         alert("Product added to cart");
+        CartDataFromBackend();
       })
       .catch((err) => {
         setLoading(false);
@@ -40,7 +41,6 @@ const ProductCard = ({ product }) => {
     setproductData(item);
     navigate("/orderplace");
   };
-
   const outOfStock = product.stock === 0 || product.isOutOfStock;
 
   return (
